@@ -4,3 +4,5 @@ spotipy
 pyvis
 pathlib 
 networkx
+inspect
+scipy
