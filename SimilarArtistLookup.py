@@ -208,85 +208,39 @@ if st.session_state['current_page'] == "Visualize Common Artists Between You and
         new_width = "2000px"
         new_height = "2000px"
         
-        # Inside your if block, after comparing music tastes and before initializing the PyVis network:
 
-        playlists_network = net.Network(notebook=True, width=new_width, height=new_height, bgcolor="#222222", font_color="white")
-       
-        G = playlists_network 
-        # Assuming you have lists or sets of user1_artists, user2_artists, and common_artists already populated
-        # First, add nodes and edges for user1, user2, and their artists to the networkx graph
-        G.add_node(first_username)
-        G.add_node(second_username)
+        playlists_network = net.Network(notebook=True, width=new_width, height=new_height)
+        
+
+        playlists_network.add_node(first_username, color="blue")
+        playlists_network.add_node(second_username, color="red")
+
+        # Sample common artists (replace with the actual list of common artists)
+        common_artists = compare_music_taste(user1_tracks, user2_tracks)
+
 
         for artist in common_artists:
-            G.add_node(artist)
-            G.add_edge(first_username, artist, color='purple')
-            G.add_edge(second_username, artist, color='purple')
-        for artist in user1_artists:
-            G.add_node(artist)
-            G.add_edge(first_username, artist, color='blue')
-
-        for artist in user2_artists:
-            G.add_node(artist)
-            G.add_edge(second_username, artist, color='red')
+            playlists_network.add_node(artist,color = "purple")
+            playlists_network.add_edge(first_username, artist)
+            playlists_network.add_edge(second_username, artist)
 
 
+        for x in user1_artists:
+            playlists_network.add_node(x, color = "blue")
+            playlists_network.add_edge(first_username,x)
 
-        # Compute the positions of each node using a layout algorithm
-        pos = nx.spring_layout(G)
+        for x in user2_artists:
+            playlists_network.add_node(x, color= "red")
+            playlists_network.add_edge(second_username,x)
 
-        # Now initialize your PyVis network, this time without enabling physics:
-        
-        playlists_network.toggle_physics(False)
 
-        # Add nodes with positions from the networkx layout
-        for node, position in pos.items():
-            playlists_network.add_node(node, x=position[0]*50000, y=-position[1]*50000, title=node,label=node, size = 100)
+        # # Set the layout to 'BarnesHut' and adjust other parameters as needed
+        playlists_network.barnes_hut(gravity=-8000, central_gravity=0.01, spring_length=200, spring_strength=0.02, damping=0.09)
 
-        # Add edges
-        for edge in G.edges(data=True):
-            source, target, data = edge
-            playlists_network.add_edge(source, target, color=data['color'])
 
-        # Your existing code to save and display the network graph remains the same
+
+        # Show the Network Graph
         playlists_network.save_graph("similar_artists.html")
-
-
-
-
-        # playlists_network = net.Network(notebook=True, width=new_width, height=new_height)
-        
-
-        # playlists_network.add_node(first_username, color="blue")
-        # playlists_network.add_node(second_username, color="red")
-
-        # # Sample common artists (replace with the actual list of common artists)
-        # common_artists = compare_music_taste(user1_tracks, user2_tracks)
-
-
-        # for artist in common_artists:
-        #     playlists_network.add_node(artist,color = "purple")
-        #     playlists_network.add_edge(first_username, artist)
-        #     playlists_network.add_edge(second_username, artist)
-
-
-        # for x in user1_artists:
-        #     playlists_network.add_node(x, color = "blue")
-        #     playlists_network.add_edge(first_username,x)
-
-        # for x in user2_artists:
-        #     playlists_network.add_node(x, color= "red")
-        #     playlists_network.add_edge(second_username,x)
-
-        # pos = nx.spring_layout(G)
-
-        # # # # Set the layout to 'BarnesHut' and adjust other parameters as needed
-        # # playlists_network.barnes_hut(gravity=-8000, central_gravity=0.01, spring_length=200, spring_strength=0.02, damping=0.09)
-
-
-
-        # # Show the Network Graph
-        # playlists_network.save_graph("similar_artists.html")
 
 
 
