@@ -209,12 +209,15 @@ if st.session_state['current_page'] == "Visualize Common Artists Between You and
         new_height = "2000px"
         
         # Inside your if block, after comparing music tastes and before initializing the PyVis network:
-        G = nx.Graph()
 
+        playlists_network = net.Network(notebook=True, width=new_width, height=new_height, bgcolor="#222222", font_color="white")
+       
+        G = playlists_network 
         # Assuming you have lists or sets of user1_artists, user2_artists, and common_artists already populated
         # First, add nodes and edges for user1, user2, and their artists to the networkx graph
         G.add_node(first_username)
         G.add_node(second_username)
+
         for artist in common_artists:
             G.add_node(artist)
             G.add_edge(first_username, artist, color='purple')
@@ -233,7 +236,7 @@ if st.session_state['current_page'] == "Visualize Common Artists Between You and
         pos = nx.spring_layout(G)
 
         # Now initialize your PyVis network, this time without enabling physics:
-        playlists_network = net.Network(notebook=True, width=new_width, height=new_height, bgcolor="#222222", font_color="white")
+        
         playlists_network.toggle_physics(False)
 
         # Add nodes with positions from the networkx layout
