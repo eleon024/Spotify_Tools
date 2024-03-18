@@ -1,0 +1,108 @@
+<html>
+<head>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/vis/4.16.1/vis.css" type="text/css" />
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/vis/4.16.1/vis-network.min.js"> </script>
+<center>
+<h1></h1>
+</center>
+
+<!-- <link rel="stylesheet" href="../node_modules/vis/dist/vis.min.css" type="text/css" />
+<script type="text/javascript" src="../node_modules/vis/dist/vis.js"> </script>-->
+
+<style type="text/css">
+
+        #mynetwork {
+            width: 1000px;
+            height: 600px;
+            background-color: #ffffff;
+            border: 1px solid lightgray;
+            position: relative;
+            float: left;
+        }
+
+        
+
+        
+
+        
+</style>
+
+</head>
+
+<body>
+<div id = "mynetwork"></div>
+
+
+<script type="text/javascript">
+
+    // initialize global variables.
+    var edges;
+    var nodes;
+    var network; 
+    var container;
+    var options, data;
+
+    
+    // This method is responsible for drawing the graph, returns the drawn network
+    function drawGraph() {
+        var container = document.getElementById('mynetwork');
+        
+        
+
+        // parsing and collecting nodes and edges from the python
+        nodes = new vis.DataSet([{"color": "#9319e9", "id": "222ujvip6mzvs5t5dlhv554dy Spotify", "label": "222ujvip6mzvs5t5dlhv554dy Spotify", "shape": "dot"}, {"id": "Great Jazz", "label": "Great Jazz", "shape": "dot", "title": "Total Songs: 202\u003cbr\u003eTop 3 Songs:\u003c/br\u003eSteely Dan - My Old School\u003cbr\u003eFrank Sinatra - It Never Entered My Mind - Remastered\u003cbr\u003eBenny Goodman - Sing, Sing, Sing", "value": 202}, {"id": "Chill Vibes (2)", "label": "Chill Vibes (2)", "shape": "dot", "title": "Total Songs: 122\u003cbr\u003eTop 3 Songs:\u003c/br\u003eH.E.R. - Could\u0027ve Been (feat. Bryson Tiller)\u003cbr\u003eTyler, The Creator - See You Again (feat. Kali Uchis)\u003cbr\u003eThe Weeknd - In Your Eyes (with Doja Cat) - Remix", "value": 122}, {"id": "Road Trip (2)", "label": "Road Trip (2)", "shape": "dot", "title": "Total Songs: 37\u003cbr\u003eTop 3 Songs:\u003c/br\u003eStealers Wheel - Stuck In The Middle With You\u003cbr\u003ePoison - Every Rose Has Its Thorn - 2003 Remaster\u003cbr\u003eDon McLean - American Pie", "value": 37}, {"id": "Pumping Iron", "label": "Pumping Iron", "shape": "dot", "title": "Total Songs: 54\u003cbr\u003eTop 3 Songs:\u003c/br\u003eP.O.D. - Boom - 2006 Remaster\u003cbr\u003eGnarls Barkley - Crazy\u003cbr\u003eLil Wayne - A Milli - Album Version (Edited)", "value": 54}, {"id": "Nostalgia Inducing Music", "label": "Nostalgia Inducing Music", "shape": "dot", "title": "Total Songs: 56\u003cbr\u003eTop 3 Songs:\u003c/br\u003eEmo Night Brooklyn - Back in Time\u003cbr\u003eEmo Night Brooklyn - Two Stupid Kids\u003cbr\u003eMourning Maxwell - I\u0027m Sorry, Me", "value": 56}, {"id": "Replay 2021", "label": "Replay 2021", "shape": "dot", "title": "Total Songs: 100\u003cbr\u003eTop 3 Songs:\u003c/br\u003eBruno Mars - Leave The Door Open\u003cbr\u003eMorgan Wallen - 7 Summers\u003cbr\u003eLee Brice - Memory I Don\u0027t Mess With", "value": 100}, {"id": "Replay 2022", "label": "Replay 2022", "shape": "dot", "title": "Total Songs: 100\u003cbr\u003eTop 3 Songs:\u003c/br\u003eMarc Anthony - Mala\u003cbr\u003eMarc Anthony - No Se Quita\u003cbr\u003eMarc Anthony - Nada de Nada", "value": 100}, {"id": "Replay 2023", "label": "Replay 2023", "shape": "dot", "title": "Total Songs: 100\u003cbr\u003eTop 3 Songs:\u003c/br\u003eKid Rock - All Summer Long\u003cbr\u003eJosh Turner - Your Man\u003cbr\u003eBilly Joel - Piano Man", "value": 100}, {"id": "Replay 2020", "label": "Replay 2020", "shape": "dot", "title": "Total Songs: 100\u003cbr\u003eTop 3 Songs:\u003c/br\u003eThomas Rhett - Beer Can\u2019t Fix\u003cbr\u003eChris Stapleton - Tennessee Whiskey\u003cbr\u003eGeorge Strait - Carried Away", "value": 100}, {"id": "Road Trip", "label": "Road Trip", "shape": "dot", "title": "Total Songs: 42\u003cbr\u003eTop 3 Songs:\u003c/br\u003eBuffalo Springfield - For What It\u0027s Worth\u003cbr\u003eWhitesnake - Here I Go Again\u003cbr\u003eBilly Joel - Piano Man", "value": 42}, {"id": "2000s Rock Essentials", "label": "2000s Rock Essentials", "shape": "dot", "title": "Total Songs: 100\u003cbr\u003eTop 3 Songs:\u003c/br\u003eGreen Day - American Idiot\u003cbr\u003eFoo Fighters - All My Life\u003cbr\u003eWeezer - Hash Pipe", "value": 100}, {"id": "2000s Throwback", "label": "2000s Throwback", "shape": "dot", "title": "Total Songs: 163\u003cbr\u003eTop 3 Songs:\u003c/br\u003eAlicia Keys - No One\u003cbr\u003eAlicia Keys - If I Ain\u0027t Got You\u003cbr\u003eAlicia Keys - Girl on Fire", "value": 163}, {"id": "Great Classic Rock", "label": "Great Classic Rock", "shape": "dot", "title": "Total Songs: 97\u003cbr\u003eTop 3 Songs:\u003c/br\u003eGreta Van Fleet - Highway Tune\u003cbr\u003eGreta Van Fleet - Black Smoke Rising\u003cbr\u003eGreta Van Fleet - A Change Is Gonna Come", "value": 97}, {"id": "2000s Hip-Hop", "label": "2000s Hip-Hop", "shape": "dot", "title": "Total Songs: 51\u003cbr\u003eTop 3 Songs:\u003c/br\u003eOutkast - So Fresh, So Clean\u003cbr\u003eJAY-Z - Big Pimpin\u0027\u003cbr\u003eLil Wayne - A Milli", "value": 51}, {"id": "Soul/Disco", "label": "Soul/Disco", "shape": "dot", "title": "Total Songs: 94\u003cbr\u003eTop 3 Songs:\u003c/br\u003eAretha Franklin - I Say a Little Prayer\u003cbr\u003eGladys Knight \u0026 The Pips - If I Were Your Woman - Single Version\u003cbr\u003eAaron Neville - Tell It Like It Is", "value": 94}, {"id": "Rock", "label": "Rock", "shape": "dot", "title": "Total Songs: 73\u003cbr\u003eTop 3 Songs:\u003c/br\u003eMike Bloomfield - Albert\u0027s Shuffle\u003cbr\u003eMike Bloomfield - Really\u003cbr\u003eMike Bloomfield - Blues for Nothing", "value": 73}, {"id": "Hispanic Bangers", "label": "Hispanic Bangers", "shape": "dot", "title": "Total Songs: 114\u003cbr\u003eTop 3 Songs:\u003c/br\u003eMarc Anthony - Ahora Quien - Salsa Version\u003cbr\u003eSelena - Como La Flor - Remastered\u003cbr\u003eSelena - Bidi Bidi Bom Bom", "value": 114}, {"id": "Great Country \ud83e\udd20", "label": "Great Country \ud83e\udd20", "shape": "dot", "title": "Total Songs: 355\u003cbr\u003eTop 3 Songs:\u003c/br\u003eDan + Shay - Speechless\u003cbr\u003eJosh Turner - Your Man\u003cbr\u003eJason Aldean - Big Green Tractor", "value": 355}, {"id": "Concert Band Music", "label": "Concert Band Music", "shape": "dot", "title": "Total Songs: 10\u003cbr\u003eTop 3 Songs:\u003c/br\u003eFrank Ticheli - San Antonio Dances: II. Tex-Mex on the Riverwalk\u003cbr\u003eKenneth George Whitcomb - Coat of Arms\u003cbr\u003eLeonard Bernstein - Overture to Candide", "value": 10}, {"id": "Chill Vibes", "label": "Chill Vibes", "shape": "dot", "title": "Total Songs: 245\u003cbr\u003eTop 3 Songs:\u003c/br\u003eDaniel Caesar - Japanese Denim\u003cbr\u003eDaniel Caesar - Loose\u003cbr\u003eDaniel Caesar - Get You (feat. Kali Uchis)", "value": 245}, {"id": "BANGERS", "label": "BANGERS", "shape": "dot", "title": "Total Songs: 126\u003cbr\u003eTop 3 Songs:\u003c/br\u003eDua Lipa - Don\u0027t Start Now\u003cbr\u003eDua Lipa - Break My Heart\u003cbr\u003eJamiroquai - Virtual Insanity - Remastered 2006", "value": 126}]);
+        edges = new vis.DataSet([{"from": "222ujvip6mzvs5t5dlhv554dy Spotify", "to": "Great Jazz"}, {"from": "222ujvip6mzvs5t5dlhv554dy Spotify", "to": "Chill Vibes (2)"}, {"from": "222ujvip6mzvs5t5dlhv554dy Spotify", "to": "Road Trip (2)"}, {"from": "222ujvip6mzvs5t5dlhv554dy Spotify", "to": "Pumping Iron"}, {"from": "222ujvip6mzvs5t5dlhv554dy Spotify", "to": "Nostalgia Inducing Music"}, {"from": "222ujvip6mzvs5t5dlhv554dy Spotify", "to": "Replay 2021"}, {"from": "222ujvip6mzvs5t5dlhv554dy Spotify", "to": "Replay 2022"}, {"from": "222ujvip6mzvs5t5dlhv554dy Spotify", "to": "Replay 2023"}, {"from": "222ujvip6mzvs5t5dlhv554dy Spotify", "to": "Replay 2020"}, {"from": "222ujvip6mzvs5t5dlhv554dy Spotify", "to": "Road Trip"}, {"from": "222ujvip6mzvs5t5dlhv554dy Spotify", "to": "2000s Rock Essentials"}, {"from": "222ujvip6mzvs5t5dlhv554dy Spotify", "to": "2000s Throwback"}, {"from": "222ujvip6mzvs5t5dlhv554dy Spotify", "to": "Great Classic Rock"}, {"from": "222ujvip6mzvs5t5dlhv554dy Spotify", "to": "2000s Hip-Hop"}, {"from": "222ujvip6mzvs5t5dlhv554dy Spotify", "to": "Soul/Disco"}, {"from": "222ujvip6mzvs5t5dlhv554dy Spotify", "to": "Rock"}, {"from": "222ujvip6mzvs5t5dlhv554dy Spotify", "to": "Hispanic Bangers"}, {"from": "222ujvip6mzvs5t5dlhv554dy Spotify", "to": "Great Country \ud83e\udd20"}, {"from": "222ujvip6mzvs5t5dlhv554dy Spotify", "to": "Concert Band Music"}, {"from": "222ujvip6mzvs5t5dlhv554dy Spotify", "to": "Chill Vibes"}, {"from": "222ujvip6mzvs5t5dlhv554dy Spotify", "to": "BANGERS"}]);
+
+        // adding nodes and edges to the graph
+        data = {nodes: nodes, edges: edges};
+
+        var options = {
+    "configure": {
+        "enabled": false
+    },
+    "edges": {
+        "color": {
+            "inherit": true
+        },
+        "smooth": {
+            "enabled": false,
+            "type": "continuous"
+        }
+    },
+    "interaction": {
+        "dragNodes": true,
+        "hideEdgesOnDrag": false,
+        "hideNodesOnDrag": false
+    },
+    "physics": {
+        "enabled": true,
+        "stabilization": {
+            "enabled": true,
+            "fit": true,
+            "iterations": 1000,
+            "onlyDynamicEdges": false,
+            "updateInterval": 50
+        }
+    }
+};
+        
+        
+
+        
+
+        network = new vis.Network(container, data, options);
+	 
+        
+
+
+        
+
+        return network;
+
+    }
+
+    drawGraph();
+
+</script>
+</body>
+</html>
