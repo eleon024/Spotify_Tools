@@ -238,7 +238,7 @@ if st.session_state['current_page'] == "Visualize Common Artists Between You and
 
         # Add nodes with positions from the networkx layout
         for node, position in pos.items():
-            playlists_network.add_node(node, x=position[0]*1000, y=-position[1]*1000, title=node)
+            playlists_network.add_node(node, x=position[0]*10000, y=-position[1]*10000, title=node, size = 100)
 
         # Add edges
         for edge in G.edges(data=True):
