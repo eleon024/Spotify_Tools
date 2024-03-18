@@ -3,3 +3,4 @@ pandas
 spotipy
 pyvis
 pathlib 
+networkx
